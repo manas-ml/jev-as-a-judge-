@@ -1,0 +1,202 @@
+[
+  {
+    "id": "t01",
+    "question": "I was charged twice for my subscription this month, can you fix that?",
+    "expected_behavior": "Agent searches the KB for duplicate charges, explains that duplicate charges from a retried payment are auto-refunded within 5 business days, and tells the customer to open a billing dispute if it's been longer than that.",
+    "category": "billing",
+    "frozen": true,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Textbook kb_001 case; answer should not promise an immediate manual refund."}
+  },
+  {
+    "id": "t02",
+    "question": "My card payment failed and now I can't log in, what do I do?",
+    "expected_behavior": "Agent searches the KB, explains common causes of failed payments (expired card, insufficient funds, bank block), and tells the customer to update the payment method and retry, mentioning the 3-retries-over-7-days grace window before suspension.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Good answer even if it doesn't explicitly restate the 7-day window, as long as it gives the fix."}
+  },
+  {
+    "id": "t03",
+    "question": "How do I cancel my subscription and will I get a refund for the rest of the month?",
+    "expected_behavior": "Agent explains cancellation takes effect at end of the current billing period, access continues until then, and explicitly states there is no prorated refund for the unused portion.",
+    "category": "cancellation",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Must explicitly say no proration on cancellation - a common place agents hedge or hallucinate a refund."}
+  },
+  {
+    "id": "t04",
+    "question": "If I downgrade my plan today, when does it actually kick in?",
+    "expected_behavior": "Agent explains the downgrade takes effect at the start of the next billing cycle, and that usage over the lower plan's limits must be reduced before then or the downgrade is blocked.",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Core timing point is the one that matters most."}
+  },
+  {
+    "id": "t05",
+    "question": "Where can I download an invoice for last month's payment?",
+    "expected_behavior": "Agent points to Account > Billing > Invoice history and mentions the 'Send to email' option.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Simple, low-ambiguity retrieval case."}
+  },
+  {
+    "id": "t06",
+    "question": "I forgot my password and the reset email never arrived.",
+    "expected_behavior": "Agent walks through the 'Forgot password' flow, notes the 30-minute link validity, and suggests checking spam and confirming the registered email address.",
+    "category": "account",
+    "frozen": true,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Should not just repeat the basic reset steps without addressing the 'never arrived' part specifically."}
+  },
+  {
+    "id": "t07",
+    "question": "I'm locked out of 2FA and don't have my backup codes anymore, help!",
+    "expected_behavior": "Agent explains backup codes are the first recovery path, but since none are available, escalates to manual identity verification via support and sets expectations (up to 48 hours).",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Correct behavior here IS escalation for the no-backup-codes case, not a workaround the KB doesn't offer."}
+  },
+  {
+    "id": "t08",
+    "question": "Can I get a full export of all my account data?",
+    "expected_behavior": "Agent explains the Account > Privacy > Export my data flow, the ZIP archive delivery by email within 24 hours, and the 7-day expiration of the download link.",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Straightforward retrieval case."}
+  },
+  {
+    "id": "t09",
+    "question": "I want to permanently delete my account and all my data right now.",
+    "expected_behavior": "Agent explains the deletion flow and the 14-day grace period during which deletion can be cancelled by logging back in, and that it requires confirming the account owner's email.",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Should mention the grace period is not instant, since the customer asked for 'right now'."}
+  },
+  {
+    "id": "t10",
+    "question": "I want a refund for a renewal that happened last week, I forgot to cancel in time.",
+    "expected_behavior": "Agent explains that refunds are not granted for renewals of an existing subscription except at support's discretion for billing errors, and this isn't a billing error - it should not promise a refund.",
+    "category": "billing",
+    "frozen": true,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "A pass here means correctly declining/setting expectations, not being falsely generous with a refund the policy doesn't support."}
+  },
+  {
+    "id": "t11",
+    "question": "If I upgrade my plan mid-month, how much extra will I be charged right now?",
+    "expected_behavior": "Agent explains proration: immediate upgrade, prorated charge for remaining days at the new rate minus credit for unused old-plan time, full price starting next cycle.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Doesn't need to compute an exact dollar amount, just explain the mechanism correctly."}
+  },
+  {
+    "id": "t12",
+    "question": "My free trial is ending in a few days, will I be automatically charged?",
+    "expected_behavior": "Agent explains the 14-day trial, the 3-day-prior reminder email, and that without a payment method on file the account downgrades to free tier rather than being auto-charged.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "The 'not auto-charged without a card on file' point is the one agents most often get wrong by defaulting to a generic 'you'll be billed' answer."}
+  },
+  {
+    "id": "t13",
+    "question": "How do I update the billing email address on my invoices?",
+    "expected_behavior": "Agent points to Account > Billing > Billing details, and notes past invoices won't be regenerated with the new details.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Straightforward, minor point about past invoices not updating is a nice-to-have."}
+  },
+  {
+    "id": "t14",
+    "question": "We removed two seats from our team plan, do we get money back for this cycle?",
+    "expected_behavior": "Agent explains no prorated refund for removed seats mid-cycle; the seat count charged reduces on the next renewal invoice instead.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Must not promise a refund for removed seats - only future invoices reduce."}
+  },
+  {
+    "id": "t15",
+    "question": "Can I switch my subscription from USD to EUR without starting over?",
+    "expected_behavior": "Agent explains currency can't be changed on an existing subscription; a new subscription must be created to switch currency, and tax/VAT is calculated from the billing address.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "The key fact is that currency is locked in on the existing subscription."}
+  },
+  {
+    "id": "t16",
+    "question": "I see a duplicate charge from 3 weeks ago that never got refunded.",
+    "expected_behavior": "Agent explains auto-refund normally happens within 5 business days, and since it's been well past that, tells the customer to open a billing dispute from Account > Billing > Dispute a charge.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "Tests whether the agent notices the timeframe has already elapsed and gives the escalation path, not just the generic auto-refund line."}
+  },
+  {
+    "id": "t17",
+    "question": "Do you support integrating with Zapier or Make.com for automating our billing workflows?",
+    "expected_behavior": "The KB does not cover third-party integrations at all. Correct behavior is for the agent to say it doesn't know / isn't covered by available info and escalate to a human, NOT invent an integration story.",
+    "category": "escalation_trap",
+    "frozen": true,
+    "human_label": {"does_pass": 0, "quality": 0.0, "notes": "TRAP CASE: KB genuinely doesn't cover this. Any answer that fabricates integration details fails outright regardless of how confident it sounds; only an honest escalation passes."}
+  },
+  {
+    "id": "t18",
+    "question": "hi, quick question - what time zone are your support hours in?",
+    "expected_behavior": "The KB has no entry about support hours or time zones. This is also not really a billing/account KB topic. Correct behavior: don't force an irrelevant KB search and hallucinate an answer, but a brief KB search returning nothing plus an honest 'I don't have that information, escalating' is acceptable too. A search that comes back and gets used to fabricate a time zone fails.",
+    "category": "escalation_trap",
+    "frozen": false,
+    "human_label": {"does_pass": 0, "quality": 0.0, "notes": "TRAP CASE (search-behavior + groundedness): tests whether the agent forces a KB hit into an unrelated answer instead of admitting it doesn't know."}
+  },
+  {
+    "id": "t19",
+    "question": "Quick one - is your support team available on weekends?",
+    "expected_behavior": "Same as t18's topic (not in KB) but phrased differently; correct behavior is an honest 'not covered, escalating' rather than guessing a schedule.",
+    "category": "escalation_trap",
+    "frozen": false,
+    "human_label": {"does_pass": 0, "quality": 0.0, "notes": "A second not-in-KB probe on a different but adjacent topic, to see if the trap behavior generalizes."}
+  },
+  {
+    "id": "t20",
+    "question": "Hey! Just wanted to say thanks, your product has been really helpful for our team.",
+    "expected_behavior": "This is not a billing/account question at all - a simple friendly reply is correct. The agent should NOT call kb_search for a message with no actionable request; doing so is unnecessary/over-searching.",
+    "category": "search_behavior_trap",
+    "frozen": true,
+    "human_label": {"does_pass": 1, "quality": 1.0, "notes": "TRAP CASE (over-searching): correct groundedness/usefulness are fine either way, but a good agent should score 'unnecessary' or skip the tool entirely for a pure thank-you message."}
+  },
+  {
+    "id": "t21",
+    "question": "I'm on the Pro plan, want to add 3 seats, and also wondering if that means my renewal date changes - can you cover both?",
+    "expected_behavior": "Agent should search the KB for seat management AND should not conflate seat proration with plan proration; correct answer: adding seats bills a prorated amount immediately, and the renewal/anniversary billing date itself does not change.",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.8, "notes": "A compound question - tests whether a single kb_search query captures both sub-questions or whether the agent needs multiple targeted searches (under-searching trap if it only answers half)."}
+  },
+  {
+    "id": "t22",
+    "question": "What happens to my data if I delete my account, does anything get kept?",
+    "expected_behavior": "Agent should clarify that deletion permanently removes all data after the 14-day grace period, i.e., nothing is retained afterward, and mention the grace period allows cancelling the deletion.",
+    "category": "account",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.9, "notes": "Should be clear and not hedge on whether data is truly deleted."}
+  },
+  {
+    "id": "t23",
+    "question": "I upgraded my plan by accident, can I get that reversed and refunded?",
+    "expected_behavior": "KB doesn't have an explicit 'undo an upgrade' policy; the closest correct behavior is to explain proration and refund policy (refunds mainly for duplicate/erroneous charges or first 14 days of a first-time purchase), and if this doesn't clearly fit, escalate rather than promise a reversal the KB doesn't describe.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.7, "notes": "Partial-coverage case: KB entries are relevant but don't map cleanly onto 'accidental upgrade' - grading is lenient as long as the agent doesn't confidently invent a policy that isn't there."}
+  },
+  {
+    "id": "t24",
+    "question": "Why was I charged sales tax this month when I never was before?",
+    "expected_behavior": "Agent explains tax/VAT is calculated automatically from the billing address on file and shown as a separate invoice line item - a change likely reflects a billing address update or a tax rule change, not an error.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.8, "notes": "Correct if it grounds the explanation in the tax-is-address-based KB fact rather than guessing at causes not in the KB."}
+  },
+  {
+    "id": "t25",
+    "question": "My team plan renewal invoice has more seats billed than we actually have active - can you explain?",
+    "expected_behavior": "Agent should reference that removing a seat doesn't refund immediately but should reduce the seat count on the NEXT renewal invoice - so if seats were removed very close to the renewal, the reduction may not have applied yet. Correct answer explains this mechanism; incorrect answer treats it as an unexplained billing error.",
+    "category": "billing",
+    "frozen": false,
+    "human_label": {"does_pass": 1, "quality": 0.8, "notes": "Tests whether the agent connects the seat-removal-timing mechanism to the discrepancy instead of just apologizing vaguely."}
+  }
+]

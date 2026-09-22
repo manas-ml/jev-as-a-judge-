@@ -1,0 +1,77 @@
+[
+  {
+    "id": "kb_001",
+    "title": "Duplicate charge",
+    "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge."
+  },
+  {
+    "id": "kb_002",
+    "title": "Failed payment",
+    "text": "A failed payment is most often caused by an expired card, insufficient funds, or the issuing bank blocking the charge. Update your payment method under Account > Billing > Payment methods, then click 'Retry payment' on the failed invoice. We automatically retry failed payments 3 times over 7 days before suspending the account."
+  },
+  {
+    "id": "kb_003",
+    "title": "Subscription cancellation",
+    "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period."
+  },
+  {
+    "id": "kb_004",
+    "title": "Plan downgrades",
+    "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically."
+  },
+  {
+    "id": "kb_005",
+    "title": "Invoice and receipt requests",
+    "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date."
+  },
+  {
+    "id": "kb_006",
+    "title": "Password reset",
+    "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with."
+  },
+  {
+    "id": "kb_007",
+    "title": "2FA lockout",
+    "text": "If you are locked out because you lost access to your two-factor authentication device, use one of the 10 backup codes generated when 2FA was enabled. If backup codes are also unavailable, account recovery requires manual identity verification via support and can take up to 48 hours."
+  },
+  {
+    "id": "kb_008",
+    "title": "Data export",
+    "text": "A full export of your account data (records, files, and settings) can be requested from Account > Privacy > Export my data. Exports are generated as a downloadable ZIP archive and the download link is emailed within 24 hours; the link expires after 7 days."
+  },
+  {
+    "id": "kb_009",
+    "title": "Account deletion",
+    "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address."
+  },
+  {
+    "id": "kb_010",
+    "title": "Refund policy",
+    "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors."
+  },
+  {
+    "id": "kb_011",
+    "title": "Proration on upgrade",
+    "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle."
+  },
+  {
+    "id": "kb_012",
+    "title": "Trial expiration",
+    "text": "Free trials last 14 days from signup. Three days before the trial ends, an email reminder is sent; if no payment method is on file when the trial ends, the account is downgraded to the free tier rather than being charged automatically. Adding a payment method during the trial converts it to a paid plan only at expiration, not immediately."
+  },
+  {
+    "id": "kb_013",
+    "title": "Updating billing contact and address",
+    "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details."
+  },
+  {
+    "id": "kb_014",
+    "title": "Seat management on team plans",
+    "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats."
+  },
+  {
+    "id": "kb_015",
+    "title": "Currency and tax on invoices",
+    "text": "Invoices are billed in the currency selected at signup and cannot be changed on an existing subscription; a new subscription must be created to switch currency. Applicable sales tax or VAT is calculated automatically from the billing address on file and shown as a separate line item on each invoice."
+  }
+]
