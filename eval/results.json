@@ -1,0 +1,794 @@
+[
+  {
+    "id": "t01",
+    "question": "I was charged twice for my subscription this month, can you fix that?",
+    "answer": "Here's what our billing policy says about duplicate charges:\n\n**Duplicate charges are usually automatic.** If you see two charges for the same billing period, it's typically caused by a retried payment after a temporary card decline. These duplicates are detected automatically and refunded within **5 business days** \u2014 no action needed on your part.\n\n**If it's been more than 5 business days**, you can open a billing dispute:\n- Go to **Account > Billing > Dispute a charge**, and our team will look into it.\n\nIf you let me know how long ago the charge appeared and confirm both charges are for the same billing period, I can point you to the right next step. If the dispute route doesn't resolve it, I'll escalate to a human agent for you.",
+    "kb_evidence": [
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.4539
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.3351
+      },
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.2751
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "charged twice duplicate charge subscription this month",
+        "top_k": 3
+      }
+    ],
+    "expected_behavior": "Agent searches the KB for duplicate charges, explains that duplicate charges from a retried payment are auto-refunded within 5 business days, and tells the customer to open a billing dispute if it's been longer than that."
+  },
+  {
+    "id": "t02",
+    "question": "My card payment failed and now I can't log in, what do I do?",
+    "answer": "Here's what the knowledge base covers:\n\n**For the failed payment:**\nA failed payment is most often caused by an expired card, insufficient funds, or the issuing bank blocking the charge. To fix it:\n1. Go to **Account > Billing > Payment methods** and update your payment method.\n2. Click **\"Retry payment\"** on the failed invoice.\n\nNote: we automatically retry failed payments **3 times over 7 days** before suspending the account \u2014 so if it's still within that window, the payment may resolve on its own once your card is updated.\n\n**On the login problem:** I don't have anything in the KB that covers being unable to log in specifically because of a failed payment. The closest entry is about 2FA lockouts, which is a different situation. I don't want to guess at the cause or give you steps that might not apply.\n\nSo I'm **escalating the login issue to a human agent** who can look at your account directly. In the meantime, updating your payment method and retrying the invoice is the right first step, and it may also resolve the access issue.\n\nIs there anything else about the billing side I can help with?",
+    "kb_evidence": [
+      {
+        "id": "kb_002",
+        "title": "Failed payment",
+        "text": "A failed payment is most often caused by an expired card, insufficient funds, or the issuing bank blocking the charge. Update your payment method under Account > Billing > Payment methods, then click 'Retry payment' on the failed invoice. We automatically retry failed payments 3 times over 7 days before suspending the account.",
+        "score": 0.7172
+      },
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.154
+      },
+      {
+        "id": "kb_012",
+        "title": "Trial expiration",
+        "text": "Free trials last 14 days from signup. Three days before the trial ends, an email reminder is sent; if no payment method is on file when the trial ends, the account is downgraded to the free tier rather than being charged automatically. Adding a payment method during the trial converts it to a paid plan only at expiration, not immediately.",
+        "score": 0.0928
+      },
+      {
+        "id": "kb_009",
+        "title": "Account deletion",
+        "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address.",
+        "score": 0.1528
+      },
+      {
+        "id": "kb_007",
+        "title": "2FA lockout",
+        "text": "If you are locked out because you lost access to your two-factor authentication device, use one of the 10 backup codes generated when 2FA was enabled. If backup codes are also unavailable, account recovery requires manual identity verification via support and can take up to 48 hours.",
+        "score": 0.1153
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "card payment failed",
+        "top_k": null
+      },
+      {
+        "query": "can't log in account locked after failed payment",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent searches the KB, explains common causes of failed payments (expired card, insufficient funds, bank block), and tells the customer to update the payment method and retry, mentioning the 3-retries-over-7-days grace window before suspension."
+  },
+  {
+    "id": "t03",
+    "question": "How do I cancel my subscription and will I get a refund for the rest of the month?",
+    "answer": "Here's how it works:\n\n**Canceling:** Go to **Account > Subscription > Cancel plan**. Cancellation takes effect at the end of your current billing period \u2014 you keep full access until then and won't be charged again.\n\n**Refund for the rest of the month:** No. We don't offer prorated refunds for the unused portion of the current period.\n\nOne thing worth checking: refunds *are* available in limited cases \u2014 duplicate or erroneous charges, or within 14 days of a **first-time** subscription purchase if the product wasn't used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, generally aren't granted (though support can make exceptions for billing errors).\n\nIf you think your situation falls into one of those categories, let me know and I can look into it further.",
+    "kb_evidence": [
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.7151
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.4135
+      },
+      {
+        "id": "kb_015",
+        "title": "Currency and tax on invoices",
+        "text": "Invoices are billed in the currency selected at signup and cannot be changed on an existing subscription; a new subscription must be created to switch currency. Applicable sales tax or VAT is calculated automatically from the billing address on file and shown as a separate line item on each invoice.",
+        "score": 0.1499
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "cancel subscription refund for remainder of month",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains cancellation takes effect at end of the current billing period, access continues until then, and explicitly states there is no prorated refund for the unused portion."
+  },
+  {
+    "id": "t04",
+    "question": "If I downgrade my plan today, when does it actually kick in?",
+    "answer": "A downgrade takes effect at the **start of your next billing cycle** \u2014 so you keep your current plan's features until then.\n\nTwo things to note:\n- **Usage limits:** Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date, or it will be blocked automatically.\n- **No proration:** Unlike upgrades, downgrades don't take effect immediately, so there's no mid-cycle refund or charge. (For reference, upgrades apply immediately with prorated billing.)",
+    "kb_evidence": [
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.5126
+      },
+      {
+        "id": "kb_011",
+        "title": "Proration on upgrade",
+        "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle.",
+        "score": 0.2239
+      },
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.1193
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "when does a plan downgrade take effect",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains the downgrade takes effect at the start of the next billing cycle, and that usage over the lower plan's limits must be reduced before then or the downgrade is blocked."
+  },
+  {
+    "id": "t05",
+    "question": "Where can I download an invoice for last month's payment?",
+    "answer": "You can download invoices from **Account > Billing > Invoice history**. Every past payment has a PDF invoice/receipt available there \u2014 download them individually, or use **\"Send to email\"** next to the invoice date to email a copy to a billing contact.",
+    "kb_evidence": [
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.4776
+      },
+      {
+        "id": "kb_002",
+        "title": "Failed payment",
+        "text": "A failed payment is most often caused by an expired card, insufficient funds, or the issuing bank blocking the charge. Update your payment method under Account > Billing > Payment methods, then click 'Retry payment' on the failed invoice. We automatically retry failed payments 3 times over 7 days before suspending the account.",
+        "score": 0.3651
+      },
+      {
+        "id": "kb_008",
+        "title": "Data export",
+        "text": "A full export of your account data (records, files, and settings) can be requested from Account > Privacy > Export my data. Exports are generated as a downloadable ZIP archive and the download link is emailed within 24 hours; the link expires after 7 days.",
+        "score": 0.1935
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "download invoice for last month's payment",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent points to Account > Billing > Invoice history and mentions the 'Send to email' option."
+  },
+  {
+    "id": "t06",
+    "question": "I forgot my password and the reset email never arrived.",
+    "answer": "Here's what the KB covers for password resets:\n\n1. On the login screen, click **Forgot password** and enter your account email. The reset link is valid for **30 minutes**, so use it promptly.\n2. If the email doesn't arrive within a few minutes:\n   - Check your **spam/junk** folder.\n   - Confirm you're using the **email address the account was originally registered with** (a different address won't trigger a reset).\n\nIf you've done both and the email still isn't arriving, that's beyond what our knowledge base covers \u2014 I'll escalate this to a human agent to look into the delivery issue for your account.",
+    "kb_evidence": [
+      {
+        "id": "kb_006",
+        "title": "Password reset",
+        "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with.",
+        "score": 0.7055
+      },
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.0521
+      },
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.0248
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "forgot password, password reset email never arrived",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent walks through the 'Forgot password' flow, notes the 30-minute link validity, and suggests checking spam and confirming the registered email address."
+  },
+  {
+    "id": "t07",
+    "question": "I'm locked out of 2FA and don't have my backup codes anymore, help!",
+    "answer": "Here's what the KB says about your situation:\n\n- If you've lost access to your 2FA device, the normal route is to use one of the 10 backup codes generated when 2FA was enabled.\n- Since your backup codes are also unavailable, **account recovery requires manual identity verification through support** \u2014 this process can take **up to 48 hours**.\n\nI can't perform that identity verification myself, so I'm escalating your ticket to a human agent who will walk you through the verification steps. To speed things up, please have ready:\n\n- The email address on the account\n- Any proof of ownership you can provide (e.g., access to the account email, recent invoice/payment details)\n\nIs there anything else I can help you with in the meantime?",
+    "kb_evidence": [
+      {
+        "id": "kb_007",
+        "title": "2FA lockout",
+        "text": "If you are locked out because you lost access to your two-factor authentication device, use one of the 10 backup codes generated when 2FA was enabled. If backup codes are also unavailable, account recovery requires manual identity verification via support and can take up to 48 hours.",
+        "score": 0.6141
+      },
+      {
+        "id": "kb_009",
+        "title": "Account deletion",
+        "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address.",
+        "score": 0.0637
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "locked out of 2FA, lost backup codes, can't log in",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains backup codes are the first recovery path, but since none are available, escalates to manual identity verification via support and sets expectations (up to 48 hours)."
+  },
+  {
+    "id": "t08",
+    "question": "Can I get a full export of all my account data?",
+    "answer": "Yes. You can request a full export of your account data (records, files, and settings) from **Account > Privacy > Export my data**.\n\n- The export is generated as a downloadable **ZIP archive**.\n- The download link is **emailed to you within 24 hours**.\n- The link **expires after 7 days**, so download it promptly.\n\nNote: this is a data export, not a copy of billing invoices. If you need those specifically, let me know and I'll look into it.",
+    "kb_evidence": [
+      {
+        "id": "kb_008",
+        "title": "Data export",
+        "text": "A full export of your account data (records, files, and settings) can be requested from Account > Privacy > Export my data. Exports are generated as a downloadable ZIP archive and the download link is emailed within 24 hours; the link expires after 7 days.",
+        "score": 0.7725
+      },
+      {
+        "id": "kb_009",
+        "title": "Account deletion",
+        "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address.",
+        "score": 0.183
+      },
+      {
+        "id": "kb_006",
+        "title": "Password reset",
+        "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with.",
+        "score": 0.04
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "full export of all account data",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains the Account > Privacy > Export my data flow, the ZIP archive delivery by email within 24 hours, and the 7-day expiration of the download link."
+  },
+  {
+    "id": "t09",
+    "question": "I want to permanently delete my account and all my data right now.",
+    "answer": "Here's how account deletion works:\n\n- **Where to do it:** Go to **Account > Privacy > Delete account** and confirm the account owner's email address.\n- **Timing:** Deletion isn't instant. Your data is permanently removed **after a 14-day grace period**.\n- **Cancel window:** During those 14 days you can cancel the deletion by simply logging back in.\n\nIf you'd like a copy of your records, files, and settings before deleting, you can request an export from **Account > Privacy > Export my data** \u2014 the ZIP download link is emailed within 24 hours and expires after 7 days.\n\nOne note: I can't process or expedite the deletion from my side, and there's no way to skip the 14-day grace period per the policy above. If you need something outside of that, let me know and I'll escalate it to a human agent.",
+    "kb_evidence": [
+      {
+        "id": "kb_009",
+        "title": "Account deletion",
+        "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address.",
+        "score": 0.6959
+      },
+      {
+        "id": "kb_008",
+        "title": "Data export",
+        "text": "A full export of your account data (records, files, and settings) can be requested from Account > Privacy > Export my data. Exports are generated as a downloadable ZIP archive and the download link is emailed within 24 hours; the link expires after 7 days.",
+        "score": 0.2476
+      },
+      {
+        "id": "kb_006",
+        "title": "Password reset",
+        "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with.",
+        "score": 0.0324
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "permanently delete account and all data",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains the deletion flow and the 14-day grace period during which deletion can be cancelled by logging back in, and that it requires confirming the account owner's email."
+  },
+  {
+    "id": "t10",
+    "question": "I want a refund for a renewal that happened last week, I forgot to cancel in time.",
+    "answer": "Based on our refund policy, here's the situation:\n\n- **Refunds for renewals of an existing subscription are not granted** under our standard policy \u2014 only duplicate/erroneous charges, or first-time purchases within 14 days (and unused beyond basic setup), qualify.\n- Forgetting to cancel before a renewal doesn't fall under those categories, so I can't approve a refund directly.\n\nThat said, our policy does allow support discretion in cases involving billing errors. Since your situation is a missed cancellation rather than a billing error, I can't promise an outcome \u2014 but I'm escalating this to a human agent so they can review your case directly.\n\nIn the meantime, you can cancel anytime via **Account > Subscription > Cancel plan**. Cancellation takes effect at the end of the current billing period, so you'll keep access until then and won't be charged again.",
+    "kb_evidence": [
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.3964
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.3131
+      },
+      {
+        "id": "kb_006",
+        "title": "Password reset",
+        "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with.",
+        "score": 0.0836
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "refund for renewal forgot to cancel in time",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains that refunds are not granted for renewals of an existing subscription except at support's discretion for billing errors, and this isn't a billing error - it should not promise a refund."
+  },
+  {
+    "id": "t11",
+    "question": "If I upgrade my plan mid-month, how much extra will I be charged right now?",
+    "answer": "Here's how it works (from our billing KB):\n\n**Upgrades take effect immediately.** You're charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of your old plan. Your next full-price invoice starts at the following billing cycle.\n\nSo the exact \"extra\" charge depends on your plan prices and how many days remain in the cycle. In formula terms:\n\n- Charge = (new plan rate \u00d7 days remaining \u00f7 days in cycle)\n- Credit = (old plan rate \u00d7 days remaining \u00f7 days in cycle)\n- Net amount due now = Charge \u2212 Credit\n\nIf you tell me your current plan, the plan you're moving to, and your billing renewal date, I can walk you through the math \u2014 or you can see the exact figure in the upgrade confirmation screen before you confirm.",
+    "kb_evidence": [
+      {
+        "id": "kb_011",
+        "title": "Proration on upgrade",
+        "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle.",
+        "score": 0.5029
+      },
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.2191
+      },
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.1638
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "upgrade plan mid-month proration extra charge",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains proration: immediate upgrade, prorated charge for remaining days at the new rate minus credit for unused old-plan time, full price starting next cycle."
+  },
+  {
+    "id": "t12",
+    "question": "My free trial is ending in a few days, will I be automatically charged?",
+    "answer": "Good news: no, you won't be automatically charged.\n\n- Free trials last **14 days** from signup.\n- **3 days before** the trial ends, you'll get an email reminder.\n- If there's **no payment method on file** when the trial ends, your account is simply **downgraded to the free tier** \u2014 no charge.\n- If you **do add a payment method** during the trial, it only converts to a paid plan **at expiration**, not immediately.\n\nSo if you don't want to continue into a paid plan, just don't add a payment method \u2014 nothing will be charged. If you'd like, you can also review your plan options under Account > Subscription.",
+    "kb_evidence": [
+      {
+        "id": "kb_012",
+        "title": "Trial expiration",
+        "text": "Free trials last 14 days from signup. Three days before the trial ends, an email reminder is sent; if no payment method is on file when the trial ends, the account is downgraded to the free tier rather than being charged automatically. Adding a payment method during the trial converts it to a paid plan only at expiration, not immediately.",
+        "score": 0.6979
+      },
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.1613
+      },
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.1038
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "free trial ending automatically charged",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains the 14-day trial, the 3-day-prior reminder email, and that without a payment method on file the account downgrades to free tier rather than being auto-charged."
+  },
+  {
+    "id": "t13",
+    "question": "How do I update the billing email address on my invoices?",
+    "answer": "Go to **Account > Billing > Billing details**, where you can update both the billing contact email and the company address used on invoices.\n\nOne thing to note: changes only apply to invoices generated *after* the update \u2014 past invoices are not regenerated with the new details.\n\nIf you also need a past invoice sent to a new address, you can open it under **Account > Billing > Invoice history** and use \"Send to email\" next to the invoice date.",
+    "kb_evidence": [
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.6128
+      },
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.392
+      },
+      {
+        "id": "kb_015",
+        "title": "Currency and tax on invoices",
+        "text": "Invoices are billed in the currency selected at signup and cannot be changed on an existing subscription; a new subscription must be created to switch currency. Applicable sales tax or VAT is calculated automatically from the billing address on file and shown as a separate line item on each invoice.",
+        "score": 0.2253
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "update billing email address on invoices",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent points to Account > Billing > Billing details, and notes past invoices won't be regenerated with the new details."
+  },
+  {
+    "id": "t14",
+    "question": "We removed two seats from our team plan, do we get money back for this cycle?",
+    "answer": "No \u2014 removing seats doesn't generate a refund for the current cycle.\n\nPer our seat management policy for team plans:\n- **Removing a seat** does not issue a prorated refund.\n- It **reduces the seat count billed on your next renewal invoice**.\n- (For contrast, *adding* a seat mid-cycle bills a prorated amount immediately.)\n\nYou can manage seats under **Account > Team > Manage seats**.\n\nIf you need anything more than that \u2014 e.g., a goodwill credit or a special case \u2014 that's outside what I can confirm from the policy, so I'd escalate it to a human agent.",
+    "kb_evidence": [
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.6676
+      },
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.289
+      },
+      {
+        "id": "kb_011",
+        "title": "Proration on upgrade",
+        "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle.",
+        "score": 0.1894
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "removed seats from team plan, do we get money back for this cycle?",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains no prorated refund for removed seats mid-cycle; the seat count charged reduces on the next renewal invoice instead."
+  },
+  {
+    "id": "t15",
+    "question": "Can I switch my subscription from USD to EUR without starting over?",
+    "answer": "Unfortunately, no \u2014 the currency on an existing subscription can't be changed.\n\nPer our KB: invoices are billed in the currency selected at signup, and that cannot be changed on an existing subscription. To switch from USD to EUR, you'd need to create a **new subscription** in EUR and cancel the current one.\n\nIf you'd like to do that, here's the practical path:\n- Set up the new EUR subscription first, so there's no gap in access.\n- Then cancel the USD plan via **Account > Subscription > Cancel plan** \u2014 cancellation takes effect at the end of the current billing period, so you keep access until then.\n\nOne note: we don't offer prorated refunds for the unused portion of the current period, so timing the switch near the end of your billing cycle avoids paying twice for overlapping time.\n\nIf your situation is more complex (e.g., an annual plan, or a mid-contract enterprise agreement), let me know and I'll escalate it to a human agent to review.",
+    "kb_evidence": [
+      {
+        "id": "kb_015",
+        "title": "Currency and tax on invoices",
+        "text": "Invoices are billed in the currency selected at signup and cannot be changed on an existing subscription; a new subscription must be created to switch currency. Applicable sales tax or VAT is calculated automatically from the billing address on file and shown as a separate line item on each invoice.",
+        "score": 0.6199
+      },
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.1722
+      },
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.1431
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "switch subscription currency from USD to EUR change billing currency",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains currency can't be changed on an existing subscription; a new subscription must be created to switch currency, and tax/VAT is calculated from the billing address."
+  },
+  {
+    "id": "t16",
+    "question": "I see a duplicate charge from 3 weeks ago that never got refunded.",
+    "answer": "Thanks for flagging this \u2014 here's what our policy says:\n\n**Duplicate charges** are usually caused by a retried payment after a temporary card decline. These are automatically detected and refunded within **5 business days**.\n\nSince your charge is from 3 weeks ago (well past that window), the automatic refund either didn't trigger or failed. Please take this action:\n\n1. Go to **Account > Billing > Dispute a charge** and open a billing dispute.\n2. Reference the duplicate transaction date and amount so the team can match it quickly.\n\nRefunds are issued for duplicate or erroneous charges, so you're covered here \u2014 the dispute is what will get it processed manually. If the dispute form doesn't resolve it, let me know and I'll escalate it to a human agent.",
+    "kb_evidence": [
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.4774
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.4271
+      },
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.117
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "duplicate charge refund not received",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains auto-refund normally happens within 5 business days, and since it's been well past that, tells the customer to open a billing dispute from Account > Billing > Dispute a charge."
+  },
+  {
+    "id": "t17",
+    "question": "Do you support integrating with Zapier or Make.com for automating our billing workflows?",
+    "answer": "I checked our billing/account knowledge base, and there's no entry covering Zapier or Make.com integrations (or third-party automation of billing workflows in general). So I can't confirm whether that's supported.\n\nI'm escalating this to a human agent who can give you a definitive answer. In the meantime, if you let them know which specific billing workflows you're trying to automate (e.g., invoice delivery, payment reminders), that will help them point you to any available API or webhook options.",
+    "kb_evidence": [
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.3414
+      },
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.2479
+      },
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.1794
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "Zapier or Make.com integration for automating billing workflows",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "The KB does not cover third-party integrations at all. Correct behavior is for the agent to say it doesn't know / isn't covered by available info and escalate to a human, NOT invent an integration story."
+  },
+  {
+    "id": "t18",
+    "question": "hi, quick question - what time zone are your support hours in?",
+    "answer": "That's outside what I can help with here \u2014 I'm the billing and account help desk agent, and I don't have information about support hours or time zones. I wouldn't want to guess at it.\n\nIf you have a billing, payment, subscription, or account question, I'm happy to help. Otherwise, I'd suggest reaching out through your normal support channel for the hours question.",
+    "kb_evidence": [],
+    "tool_calls": [],
+    "expected_behavior": "The KB has no entry about support hours or time zones. This is also not really a billing/account KB topic. Correct behavior: don't force an irrelevant KB search and hallucinate an answer, but a brief KB search returning nothing plus an honest 'I don't have that information, escalating' is acceptable too. A search that comes back and gets used to fabricate a time zone fails."
+  },
+  {
+    "id": "t19",
+    "question": "Quick one - is your support team available on weekends?",
+    "answer": "I searched our knowledge base and it doesn't contain any information about support team hours or weekend availability, so I can't give you a confirmed answer on that.\n\nI'm escalating this to a human agent who can tell you the exact support coverage windows. In the meantime, if you have a specific billing or account issue, feel free to share it and I'll look it up in the KB.",
+    "kb_evidence": [
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.1919
+      },
+      {
+        "id": "kb_007",
+        "title": "2FA lockout",
+        "text": "If you are locked out because you lost access to your two-factor authentication device, use one of the 10 backup codes generated when 2FA was enabled. If backup codes are also unavailable, account recovery requires manual identity verification via support and can take up to 48 hours.",
+        "score": 0.1514
+      },
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.1073
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "support team availability weekend hours",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Same as t18's topic (not in KB) but phrased differently; correct behavior is an honest 'not covered, escalating' rather than guessing a schedule."
+  },
+  {
+    "id": "t20",
+    "question": "Hey! Just wanted to say thanks, your product has been really helpful for our team.",
+    "answer": "Thank you so much for the kind words \u2014 that really means a lot to us! \ud83d\ude0a\n\nIf you ever need help with billing, subscriptions, payments, or anything account-related, just let me know and I'll be glad to assist. Have a great day!",
+    "kb_evidence": [],
+    "tool_calls": [],
+    "expected_behavior": "This is not a billing/account question at all - a simple friendly reply is correct. The agent should NOT call kb_search for a message with no actionable request; doing so is unnecessary/over-searching."
+  },
+  {
+    "id": "t21",
+    "question": "I'm on the Pro plan, want to add 3 seats, and also wondering if that means my renewal date changes - can you cover both?",
+    "answer": "Here's what the KB covers:\n\n**Adding 3 seats (Pro plan)**\n- Team plans are billed per active seat. Adding seats mid-cycle bills a **prorated amount immediately**.\n- You can add them under **Account > Team > Manage seats**.\n- Note: the reverse isn't symmetric \u2014 removing a seat later won't generate a prorated refund; it just reduces the seat count charged on your next renewal invoice.\n\n**On the renewal date question**\nThe KB entry on seat management describes mid-cycle seat additions as a prorated immediate charge, but it does **not explicitly state** whether your renewal date changes. I don't want to guess on that, so I'm escalating that specific part to a human agent to confirm for your account.\n\nIf it helps, you can proceed with adding the seats under Account > Team > Manage seats in the meantime \u2014 the proration behavior above will apply.",
+    "kb_evidence": [
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.55
+      },
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.3265
+      },
+      {
+        "id": "kb_003",
+        "title": "Subscription cancellation",
+        "text": "You can cancel your subscription any time from Account > Subscription > Cancel plan. Cancellation takes effect at the end of the current billing period; you keep full access until then and are not charged again. We do not offer prorated refunds for the unused portion of the current period.",
+        "score": 0.3049
+      },
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.1356
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "Add seats to Pro plan subscription",
+        "top_k": 3
+      },
+      {
+        "query": "Does adding seats change renewal date",
+        "top_k": 3
+      }
+    ],
+    "expected_behavior": "Agent should search the KB for seat management AND should not conflate seat proration with plan proration; correct answer: adding seats bills a prorated amount immediately, and the renewal/anniversary billing date itself does not change."
+  },
+  {
+    "id": "t22",
+    "question": "What happens to my data if I delete my account, does anything get kept?",
+    "answer": "Based on our knowledge base, here's how account deletion works:\n\n- **Deleting your account permanently removes all your data** once a **14-day grace period** ends.\n- During those 14 days you can **cancel the deletion by simply logging back in**.\n- To request deletion, go to **Account > Privacy > Delete account**, and you'll need to confirm the account owner's email address.\n\nOne note: the KB entry doesn't specifically address whether any data is retained after the 14-day period (e.g., for legal/backup purposes), so I can't confirm that either way. If that detail matters to you, let me know and I'll escalate it to a human agent.\n\nAlso worth mentioning: if you want a copy of your data before deleting, you can request a full export from **Account > Privacy > Export my data** \u2014 it's emailed as a ZIP download link within 24 hours (link expires after 7 days).",
+    "kb_evidence": [
+      {
+        "id": "kb_009",
+        "title": "Account deletion",
+        "text": "Deleting your account permanently removes all data after a 14-day grace period, during which you can cancel the deletion by logging back in. Deletion requests are submitted from Account > Privacy > Delete account and require confirming the account owner's email address.",
+        "score": 0.7451
+      },
+      {
+        "id": "kb_008",
+        "title": "Data export",
+        "text": "A full export of your account data (records, files, and settings) can be requested from Account > Privacy > Export my data. Exports are generated as a downloadable ZIP archive and the download link is emailed within 24 hours; the link expires after 7 days.",
+        "score": 0.3052
+      },
+      {
+        "id": "kb_006",
+        "title": "Password reset",
+        "text": "To reset your password, click 'Forgot password' on the login screen and enter your account email. A reset link is valid for 30 minutes. If the email does not arrive within a few minutes, check spam, and confirm you are using the email address the account was originally registered with.",
+        "score": 0.04
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "What happens to my data if I delete my account, is anything kept?",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent should clarify that deletion permanently removes all data after the 14-day grace period, i.e., nothing is retained afterward, and mention the grace period allows cancelling the deletion."
+  },
+  {
+    "id": "t23",
+    "question": "I upgraded my plan by accident, can I get that reversed and refunded?",
+    "answer": "Here's what the KB does and doesn't cover:\n\n**What it says:**\n- **Upgrades are immediate and prorated** \u2014 you're charged the prorated amount for the remaining days in the current period at the new rate, less a credit for the unused portion of the old plan (kb_011).\n- **Refunds** are issued only for duplicate or erroneous charges, or within 14 days of a *first-time* subscription purchase if the product wasn't used beyond basic setup. Renewals and requests after 14 days aren't refunded except at support's discretion for billing errors (kb_010).\n- **Downgrades** take effect at the start of your next billing cycle, so you keep the upgraded features until then. You'd need to bring any usage above the lower plan's limits back in line before that date or the downgrade is blocked automatically (kb_004).\n\n**The honest gap:** the KB does not specifically address accidental upgrades as a refundable category. Whether an unintended upgrade counts as a \"billing error\" eligible for a refund at support's discretion is a judgment call I can't make from the documentation.\n\n**What to do now:** if you want to revert, request a downgrade \u2014 it will apply at your next billing cycle (not retroactively). For the prorated charge already billed, I'm escalating this to a human agent to review it as a possible billing error. They can confirm whether a refund applies in your case.\n\nIf you can tell me the upgrade date and whether you've used features beyond basic setup since then, it'll help them assess it faster.",
+    "kb_evidence": [
+      {
+        "id": "kb_011",
+        "title": "Proration on upgrade",
+        "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle.",
+        "score": 0.4567
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.1401
+      },
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.1346
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "reversed plan upgrade refund accidental upgrade",
+        "top_k": null
+      },
+      {
+        "query": "accidental upgrade undo downgrade refund policy",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "KB doesn't have an explicit 'undo an upgrade' policy; the closest correct behavior is to explain proration and refund policy (refunds mainly for duplicate/erroneous charges or first 14 days of a first-time purchase), and if this doesn't clearly fit, escalate rather than promise a reversal the KB doesn't describe."
+  },
+  {
+    "id": "t24",
+    "question": "Why was I charged sales tax this month when I never was before?",
+    "answer": "Here's what the knowledge base says on this:\n\n**Sales tax on invoices (KB: \"Currency and tax on invoices\")**\n- Applicable sales tax or VAT is **calculated automatically from the billing address on file** and shown as a separate line item on each invoice.\n\nSo the most likely explanation is that something about your **billing address** or the tax rules applied to it changed between invoices \u2014 but the KB doesn't document why a tax line would newly appear on an account that was never taxed before, and I don't want to guess at a reason.\n\n**Next steps:**\n1. Check **Account > Billing** to confirm the billing address currently on file is correct \u2014 an incorrect or recently updated address can change what tax applies.\n2. I'm escalating this to a human agent to explain the specific change on your account and, if the tax was applied in error, correct it.\n\nIs there anything else I can help you with while that's being reviewed?",
+    "kb_evidence": [
+      {
+        "id": "kb_015",
+        "title": "Currency and tax on invoices",
+        "text": "Invoices are billed in the currency selected at signup and cannot be changed on an existing subscription; a new subscription must be created to switch currency. Applicable sales tax or VAT is calculated automatically from the billing address on file and shown as a separate line item on each invoice.",
+        "score": 0.3355
+      },
+      {
+        "id": "kb_001",
+        "title": "Duplicate charge",
+        "text": "If you see two charges for the same billing period, this is usually caused by a retried payment after a temporary card decline. Duplicate charges are automatically detected and refunded within 5 business days. If it has been longer than 5 business days, open a billing dispute from Account > Billing > Dispute a charge.",
+        "score": 0.1475
+      },
+      {
+        "id": "kb_010",
+        "title": "Refund policy",
+        "text": "Refunds are issued only for duplicate or erroneous charges, or within 14 days of a first-time subscription purchase if the product was not used beyond basic setup. Refunds for renewals of an existing subscription, or requests made after 14 days, are not granted except at support's discretion for billing errors.",
+        "score": 0.0418
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "Why was I charged sales tax this month when I never was before?",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent explains tax/VAT is calculated automatically from the billing address on file and shown as a separate invoice line item - a change likely reflects a billing address update or a tax rule change, not an error."
+  },
+  {
+    "id": "t25",
+    "question": "My team plan renewal invoice has more seats billed than we actually have active - can you explain?",
+    "answer": "Here's what the KB covers, and where it falls short for your specific issue:\n\n**What the KB says (Seat management on team plans, kb_014):**\n- Team plans are billed **per active seat**.\n- Adding a seat mid-cycle bills a prorated amount immediately.\n- Removing a seat does **not** issue a prorated refund, but it **reduces the seat count charged on the next renewal invoice**.\n- Seats are managed under **Account > Team > Manage seats**.\n\n**Where the KB doesn't cover you:** The entries I found do not explain a renewal invoice that bills *more* seats than your currently active count. That's a genuine discrepancy, and I don't want to guess at a cause (e.g., timing of seat removals, seats still assigned to deactivated users, or a sync issue) since that isn't documented in the KB.\n\n**What I'd suggest you check in the meantime:** Go to **Account > Team > Manage seats** and compare the seat list there against the seat count on the invoice. If the seat list shows fewer seats than the invoice, note the difference.\n\n**Next step:** I'm escalating this to a human agent, since the KB has no entry that addresses an invoice/seat-count mismatch. They can pull your account's seat history and confirm whether the invoice is correct.",
+    "kb_evidence": [
+      {
+        "id": "kb_014",
+        "title": "Seat management on team plans",
+        "text": "Team plans are billed per active seat. Adding a seat mid-cycle bills a prorated amount immediately; removing a seat does not issue a prorated refund but reduces the seat count charged on the next renewal invoice. Seats can be managed under Account > Team > Manage seats.",
+        "score": 0.6782
+      },
+      {
+        "id": "kb_005",
+        "title": "Invoice and receipt requests",
+        "text": "PDF invoices and receipts for every past payment are available under Account > Billing > Invoice history. Each invoice can be downloaded individually or emailed to a billing contact by clicking 'Send to email' next to the invoice date.",
+        "score": 0.1879
+      },
+      {
+        "id": "kb_013",
+        "title": "Updating billing contact and address",
+        "text": "The billing contact email and company address used on invoices can be changed under Account > Billing > Billing details. Changes apply to all invoices generated after the update; past invoices are not regenerated with the new details.",
+        "score": 0.1536
+      },
+      {
+        "id": "kb_004",
+        "title": "Plan downgrades",
+        "text": "Downgrading to a lower-tier plan takes effect at the start of your next billing cycle so you keep your current plan's features until then. Any usage above the lower plan's limits (seats, storage, API calls) must be reduced before the downgrade date or it will be blocked automatically.",
+        "score": 0.2315
+      },
+      {
+        "id": "kb_011",
+        "title": "Proration on upgrade",
+        "text": "Upgrading to a higher-tier plan takes effect immediately, and you are charged a prorated amount for the remaining days in the current billing period at the new plan's rate, minus a credit for the unused portion of the old plan. The next full-price invoice starts at the following billing cycle.",
+        "score": 0.1559
+      }
+    ],
+    "tool_calls": [
+      {
+        "query": "renewal invoice has more seats billed than active seats",
+        "top_k": null
+      },
+      {
+        "query": "how are seats counted for team plan renewal billing",
+        "top_k": null
+      }
+    ],
+    "expected_behavior": "Agent should reference that removing a seat doesn't refund immediately but should reduce the seat count on the NEXT renewal invoice - so if seats were removed very close to the renewal, the reduction may not have applied yet. Correct answer explains this mechanism; incorrect answer treats it as an unexplained billing error."
+  }
+]

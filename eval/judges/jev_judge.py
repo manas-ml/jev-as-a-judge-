@@ -13,6 +13,7 @@ not to hard-code an unseen response shape.
 
 from __future__ import annotations
 
+import threading
 import time
 from typing import Any
 
@@ -49,12 +50,18 @@ QUESTIONS = {
 }
 
 _client: OpenRouter | None = None
+_client_lock = threading.Lock()
 
 
 def _get_client() -> OpenRouter:
+    # Double-checked locking: evaluate() is called concurrently by repeatability.py's
+    # thread pool, and the first calls to land could otherwise race to construct
+    # multiple clients before the module-level singleton is set.
     global _client
     if _client is None:
-        _client = OpenRouter(api_key=require_env("OPENROUTER_API_KEY"))
+        with _client_lock:
+            if _client is None:
+                _client = OpenRouter(api_key=require_env("OPENROUTER_API_KEY"))
     return _client
 
 

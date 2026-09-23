@@ -1,8 +1,7 @@
 """Shared utilities: env loading, retry/backoff, JSONL audit logging, cost/quality mapping.
 
 Not part of the spec's file list explicitly, but factored out so run_agent.py,
-repeatability.py, human_agreement.py, and both judges don't duplicate the same
-retry/logging boilerplate.
+repeatability.py, and the judge don't duplicate the same retry/logging boilerplate.
 """
 
 from __future__ import annotations
@@ -41,10 +40,9 @@ def require_env(name: str) -> str:
     return value
 
 
-# --- Fixed mapping from Jev/Claude 'search_behavior' choice to a 0-1 number ---
+# --- Fixed mapping from Jev's 'search_behavior' choice to a 0-1 number ---
 # Documented per the spec: used to fold the categorical search_behavior answer
-# into the single composite `quality` score, identically for both judges so
-# their quality scores are directly comparable.
+# into the single composite `quality` score.
 SEARCH_BEHAVIOR_SCORE = {
     "appropriate": 1.0,
     "unnecessary": 0.5,

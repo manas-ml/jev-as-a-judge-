@@ -1,33 +1,15 @@
-# Jev vs. Claude-as-Judge: Support-Ticket Agent Eval PoC
+# Jev-as-Judge: Support-Ticket Agent Eval PoC
 
-A Python PoC comparing two judge patterns for evaluating a support-ticket resolution
-agent: **Jev** (TypeSafe's structured decision model, via OpenRouter's System One API)
-and **Claude-as-judge** (via OpenRouter chat completions, constrained to structured
-JSON output). Same evaluation pattern as
+A Python PoC demonstrating **Jev** (TypeSafe's structured decision model, via
+OpenRouter's System One API) as an LLM-judge pattern for evaluating a support-ticket
+resolution agent. Same evaluation pattern as
 [danielgshea/jev-as-a-judge](https://github.com/danielgshea/jev-as-a-judge), different
 domain (support tickets instead of weather) and different stack (`strands-agents`
 instead of LangGraph).
 
 We measure: **repeatability** (score variance on frozen, repeated inputs), **cost**,
-**latency**, and **agreement with human labels**.
-
-## Status of this build
-
-Every file in this repo is complete and has been exercised offline: `kb_search`
-determinism is tested, both judges' response parsing is tested against mocked
-responses shaped exactly like the real `openrouter` SDK's `DecisionsResponse` schema
-and the real `openai` SDK's chat-completion schema, retry/backoff is tested, and the
-full `repeatability -> human_agreement -> report` pipeline was run end-to-end against
-a scratch copy of the repo with mocked judges to confirm the CSV/JSON/Markdown/PNG
-wiring is correct.
-
-**What has not been run: a live call against a real `OPENROUTER_API_KEY`.** No key was
-available in the environment this was built in. `eval/results.json` and everything
-under `results/` (the CSV, the human-agreement JSON, `report.md`, the PNGs) do not
-exist yet in this repo - they are only produced by actually running the commands below
-against a funded OpenRouter account, and the numbers in `report.md` are not considered
-real (per the spec's "no placeholder numbers" requirement) until they come from that
-run. See "First real run" below.
+**latency**, and **agreement with human labels** — the first three roll into one
+summary report, and correctness gets its own separate report.
 
 ## Setup
 
@@ -36,66 +18,85 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 # then edit .env and set OPENROUTER_API_KEY, and optionally swap AGENT_MODEL_ID /
-# CLAUDE_JUDGE_MODEL_ID / JEV_MODEL_ID
+# JEV_MODEL_ID
 ```
 
 All commands below are run from the repo root so `python -m` can resolve the
 `agent`/`eval` packages.
 
-## First real run
+## Running the eval
 
-1. **Smoke-test each judge** (one live call each, ~pennies):
+1. **Smoke-test the judge** (one live call, ~pennies):
    ```bash
    python -m eval.judges.jev_judge
-   python -m eval.judges.claude_judge
    ```
-   Both print the parsed judgment as JSON and exit non-zero with the raw error/response
+   Prints the parsed judgment as JSON and exits non-zero with the raw error/response
    printed to stderr if parsing fails - inspect that raw shape and adjust the defensive
-   parsing in the relevant `judges/*.py` file if OpenRouter's actual response differs
-   from what's documented in the spec this was built against.
+   parsing in `eval/judges/jev_judge.py` if OpenRouter's actual response differs from
+   what's documented in the spec this was built against.
 
 2. **Generate frozen agent answers** for the whole dataset:
    ```bash
-   python -m eval.run_agent
+   python -m eval.run_agent --concurrency 5
    ```
-   Writes `eval/results.json`. Resumable - re-running skips tickets already present;
-   pass `--force` to regenerate everything (only do this if you're evaluating a new
-   agent/model version - do not regenerate between judge runs, or you reintroduce
-   agent-side variance into what's supposed to be judge-only variance).
+   Writes `eval/results.json`. Tickets run concurrently (bounded by `--concurrency`,
+   default 5) via a thread pool - each gets its own fresh Agent instance, so this is
+   safe. Resumable - re-running skips tickets already present; pass `--force` to
+   regenerate everything (only do this if you're evaluating a new agent/model version -
+   do not regenerate between judge runs, or you reintroduce agent-side variance into
+   what's supposed to be judge-only variance). A ticket that still fails after retries
+   is logged and skipped rather than aborting the whole run - re-run the same command
+   to retry just the failed ones.
 
 3. **Repeatability sweep** over the 5 frozen cases:
    ```bash
-   python -m eval.repeatability --n 20   # cheap smoke test first
-   python -m eval.repeatability --n 100  # the real run
+   python -m eval.repeatability --n 20                    # cheap smoke test first
+   python -m eval.repeatability --n 100 --concurrency 20  # the real run
    ```
-   Appends every repetition to `results/repeatability_raw.csv`. Resumable - re-running
-   with the same `--n` skips (judge, ticket, rep) combinations already recorded, so a
-   run that dies partway through (network blip, rate limit exhaustion) just needs the
-   same command again.
+   Appends every repetition to `results/repeatability_raw.csv`. Calls run concurrently
+   (bounded by `--concurrency`, default 10) via a thread pool - this cuts wall-clock
+   time on large sweeps but doesn't reduce API call count or cost (System One's
+   `create()` endpoint takes one ticket per request; there's no batch parameter to
+   combine multiple tickets into a single call). Resumable - re-running with the same
+   `--n` skips (ticket, rep) combinations already recorded, so a run that dies
+   partway through (network blip, rate limit exhaustion) just needs the same command
+   again.
 
-4. **Human agreement** against the hand-written labels in `eval/dataset.json`:
-   ```bash
-   python -m eval.human_agreement
-   ```
-   Writes `results/human_agreement.json`. Caches per-(judge, ticket) results in
-   `results/human_agreement_calls.json` so a failure partway through doesn't force
-   re-spending on tickets already judged.
-
-5. **Build the report**:
+4. **Build the repeatability/cost/latency report**:
    ```bash
    python -m eval.report
    ```
-   Writes `results/report.md` plus three PNGs (`variance_ratio.png`,
-   `quality_distribution.png`, `cost_vs_latency.png`) into `results/`, all computed
-   directly from the CSV/JSON produced above.
+   Writes `results/report.md` plus two PNGs (`quality_distribution.png`,
+   `cost_vs_latency.png`) into `results/`, all computed directly from the CSV
+   produced above. This report answers "is Jev *consistent*?" - not whether it's
+   *right*.
 
-Every API call (agent + both judges, including retries) is logged to
-`results/calls.jsonl` (gitignored, append-only) for auditing.
+5. **Correctness check** against the hand-written labels in `eval/dataset.json`:
+   ```bash
+   python -m eval.human_agreement --concurrency 10
+   ```
+   Scores each of the 25 labeled tickets once and writes `results/human_agreement.json`
+   (Cohen's kappa on `does_pass`, Spearman/Pearson on `quality`, a confusion matrix).
+   Calls run concurrently (bounded by `--concurrency`, default 10). Resumable - caches
+   per-ticket results in `results/human_agreement_calls.json` so a failure partway
+   through doesn't force re-spending on tickets already scored.
+
+6. **Build the correctness report**:
+   ```bash
+   python -m eval.correctness_report
+   ```
+   Writes `results/correctness_report.md` - a separate report from `results/report.md`,
+   with the aggregate agreement stats plus a per-ticket table (human vs. Jev
+   `does_pass`/`quality`, sorted by disagreement) so you can see exactly which tickets
+   Jev got wrong, not just an aggregate number.
+
+Every API call (agent + judge, including retries) is logged to `results/calls.jsonl`
+(gitignored, append-only) for auditing.
 
 ## Repo layout
 
 ```
-jev-vs-claude-judge/
+jev-as-a-judge/
   .env.example           # copy to .env and fill in OPENROUTER_API_KEY
   agent/
     kb.json               # 15 fixed FAQ entries (billing/account domain)
@@ -106,39 +107,33 @@ jev-vs-claude-judge/
     results.json               # generated by run_agent.py - frozen agent outputs
     judges/
       jev_judge.py               # OpenRouter System One (openrouter SDK)
-      claude_judge.py              # OpenRouter chat completions, structured JSON output
     run_agent.py                    # produces results.json
-    repeatability.py                 # replays frozen cases N times through both judges
-    human_agreement.py                # judge output vs. human labels
-    report.py                          # stats + charts + report.md
+    repeatability.py                 # replays frozen cases N times through Jev
+    report.py                         # repeatability/cost/latency stats + charts
+    human_agreement.py                 # Jev vs. human_label, all 25 tickets
+    correctness_report.py               # readable summary of human_agreement output
   results/
     repeatability_raw.csv    # generated
-    human_agreement.json      # generated
     report.md                  # generated
     *.png                        # generated
+    human_agreement.json      # generated (aggregate stats)
+    human_agreement_calls.json # generated (per-ticket cache)
+    correctness_report.md      # generated
     calls.jsonl               # gitignored audit log
   README.md
 ```
 
 ## Design notes / documented decisions
 
-- **`quality` composite score.** Both judges answer three axes: `groundedness` (0-1),
+- **`quality` composite score.** Jev answers three axes: `groundedness` (0-1),
   `search_behavior` (`appropriate|unnecessary|failed`), `usefulness` (0-1).
   `search_behavior` is mapped to a number via a fixed table in `eval/common.py`:
   `appropriate=1.0, unnecessary=0.5, failed=0.0`. `quality = mean(groundedness,
-  mapped_search_behavior, usefulness)`, computed identically for both judges (even
-  though Claude also emits its own `does_pass`) so the two judges' composite scores are
-  directly comparable.
-- **`does_pass` threshold.** For Jev, `does_pass = 1 if quality >= 0.5 else 0`
-  (`DOES_PASS_THRESHOLD` in `eval/common.py`). For Claude, `does_pass` is the value the
-  model itself returns as part of its required structured output, per the spec.
-- **One call per judge per ticket-evaluation, for both judges.** Jev's `state` carries
-  all evidence and it answers all three typed questions in one `system_one.create()`
-  call; Claude is likewise asked for all three axes plus `does_pass`/`outcome` in one
-  chat completion. This is a deliberate deviation from the source repo, which used 3
-  Claude calls per case - most of why that benchmark's cost landed near $28. `report.py`
-  calls this out explicitly: **the cost numbers in this PoC's report are not directly
-  comparable to that $28 figure.**
+  mapped_search_behavior, usefulness)`.
+- **`does_pass` threshold.** `does_pass = 1 if quality >= 0.5 else 0`
+  (`DOES_PASS_THRESHOLD` in `eval/common.py`).
+- **One call per ticket-evaluation.** Jev's `state` carries all evidence and it
+  answers all three typed questions in one `system_one.create()` call.
 - **`kb_search` retrieval.** TF-IDF cosine similarity with English stopword removal and
   Porter stemming (so "charge"/"charged"/"charges" collapse to one token) over the fixed
   15-entry KB - deterministic, so the same query always returns the same result and
@@ -146,21 +141,22 @@ jev-vs-claude-judge/
   the search query the agent's LLM constructs, not the raw ticket text.
 - **Dataset.** 25 tickets total, 5 marked `frozen: true` (mirrors the source repo's
   5-case design; these are what `repeatability.py` replays N times), all 25 hand-labeled
-  with `human_label` (exceeds the "at least 20" requirement). Three trap cases: `t17`
-  (KB genuinely doesn't cover third-party integrations - correct behavior is honest
-  escalation, not a fabricated answer), `t18`/`t19` (adjacent not-in-KB topics, same
-  trap generalized), and `t20` (a pure thank-you message - correct behavior is *not*
-  calling `kb_search` at all, testing over-searching).
+  with `human_label` (`does_pass`, `quality`, `notes`) for `human_agreement.py`. Three
+  trap cases: `t17` (KB genuinely doesn't cover third-party integrations - correct
+  behavior is honest escalation, not a fabricated answer), `t18`/`t19` (adjacent
+  not-in-KB topics, same trap generalized), and `t20` (a pure thank-you message -
+  correct behavior is *not* calling `kb_search` at all, testing over-searching).
 - **Retry/backoff.** Hand-rolled exponential backoff with jitter in `eval/common.py`,
   triggered on HTTP 429/500/502/503/504 and on connection/timeout errors, applied to
   every judge call and every agent call.
 
-## Known limitations (see `report.py`'s closing section once generated)
+## Known limitations (see `report.py`'s and `correctness_report.py`'s closing sections
+once generated)
 
-- Small sample size (5 frozen cases, 25 labeled tickets) - directional, not
-  statistically definitive.
-- Repeatability != correctness - low variance only shows a judge is *consistent*, not
-  that it's *right*. The human-agreement numbers (Cohen's kappa, Spearman/Pearson) are
-  the actual correctness signal.
-- This PoC's single-call-per-judge cost numbers are not comparable to the source repo's
-  3-calls-per-case benchmark.
+- Small sample size (5 frozen cases for repeatability, 25 labeled tickets for
+  correctness) - directional, not statistically definitive.
+- Repeatability != correctness - low variance only shows Jev is *consistent*, not
+  that it's *right*; the two are measured separately (`report.md` vs.
+  `correctness_report.md`) and should be read together, not interchangeably.
+- The correctness check scores each labeled ticket once, not repeated - an unlucky
+  single sample isn't averaged out the way the repeatability sweep's N reps are.
