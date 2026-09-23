@@ -2,10 +2,7 @@
 
 A Python PoC demonstrating **Jev** (TypeSafe's structured decision model, via
 OpenRouter's System One API) as an LLM-judge pattern for evaluating a support-ticket
-resolution agent. Same evaluation pattern as
-[danielgshea/jev-as-a-judge](https://github.com/danielgshea/jev-as-a-judge), different
-domain (support tickets instead of weather) and different stack (`strands-agents`
-instead of LangGraph).
+resolution agent. 
 
 We measure: **repeatability** (score variance on frozen, repeated inputs), **cost**,
 **latency**, and **agreement with human labels** — the first three roll into one
